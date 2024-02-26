@@ -15,12 +15,6 @@ const teamMembers = []
 
 // TODO: Write Code to gather information about the development team members, and render the HTML file.
 
-
-
-
-
-
-
 const questions = [
     
     //Manager questions
@@ -50,7 +44,7 @@ const questions = [
     },
 ]
 
-// Next set of questions
+// Selection mnenu question
 
 function selectionMenu () {
     inquirer.prompt([
@@ -70,11 +64,13 @@ function selectionMenu () {
         console.log(answers)
         if (answers.addTeam === 'Add an engineer') {
             engineerQuestions()
-
-
-        }
+        } else if (answers.addTeam === 'Add an intern') {
+            internQuestions()
+        } else {console.log(teamMembers)}
      })
 }
+
+// Engineer questions functiion
 
 function engineerQuestions () {
     inquirer.prompt([{
@@ -105,53 +101,57 @@ function engineerQuestions () {
 
     },])
     .then(answers => {
-        const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerGitHub)
+        const engineer = new Engineer(answers.engineerName, answers.engineerId, answers.engineerEmail, answers.engineerGitHub)
         teamMembers.push(engineer)
         selectionMenu()
         
     })
 }
-//     
-// // Engineer Questions
-    
 
-//     // Intern questions
+function internQuestions () {
+    inquirer.prompt([{
 
-//     {
-//         type: 'input',
-//         name: 'internName',
-//         message: 'Creating Intern profile. Please provide their name:',
-//         when: (answers) => answers.addTeam === 'Add an intern'
-//     },
+        type: 'input',
+        name: 'internName',
+        message: 'Creating Intern profile. Please provide their name:',
+    },
 
-//     {
-//         type: 'input',
-//         name: 'internId',
-//         message: 'What is their ID?',
-//         when: (answers) => answers.addTeam === 'Add an intern'
-//     },
+    {
+        type: 'input',
+        name: 'internId',
+        message: 'What is their ID?',
+    },
 
-//     {
-//         type: 'input',
-//         name: 'internEmail',
-//         message: 'What is their email address?',
-//         when: (answers) => answers.addTeam === 'Add an intern'
-//     },
+    {
+        type: 'input',
+        name: 'internEmail',
+        message: 'What is their email address?',
+    },
 
-
-
+    {
+        type: 'input',
+        name: 'internSchool',
+        message: 'What school are they attending?',
+    },
+]) 
+.then(answers => {
+    const intern = new Intern(answers.internName, answers.internId, answers.internEmail, answers.internSchool)
+    teamMembers.push(intern)
+    selectionMenu()
+})
+}
 
 
 function init() {
 
     inquirer.prompt(questions)
     .then(answers => {
-        // console.log(answers);
+        
         const manager = new Manager(answers.ManagerName, answers.ManagerId, answers.ManagerEmail, answers.ManagerNumber)
         
         teamMembers.push(manager)
         selectionMenu()
-        // console.log(manager)
+        
     });
 
 }
