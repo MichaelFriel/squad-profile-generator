@@ -22,7 +22,7 @@ const questions = [
     {
         type: 'input',
         name: 'ManagerName',
-        message: "Let's get started. What is our Team Manager's name?"
+        message: "Let's get started. What is your Team Manager's name?"
     },
 
     {
