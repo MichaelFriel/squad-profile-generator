@@ -66,8 +66,18 @@ function selectionMenu () {
             engineerQuestions()
         } else if (answers.addTeam === 'Add an intern') {
             internQuestions()
-        } else {console.log(teamMembers)}
-     })
+        } else {
+              const html = render(teamMembers); 
+    
+        // Write HTML to file
+        fs.writeFile(outputPath, html, err => {
+            if (err) {
+                return console.log(err);
+            }
+            console.log("Successfully created team.html in the 'output' directory.");
+        });
+        }
+    })
 }
 
 // Engineer questions functiion
@@ -157,3 +167,4 @@ function init() {
 }
 
 init()
+
